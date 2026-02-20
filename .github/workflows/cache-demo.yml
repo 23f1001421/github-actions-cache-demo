@@ -1,0 +1,23 @@
+name: Dependency Cache Demo
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: prime-cache-ca91ff0
+        uses: actions/cache@v4
+        id: cache-step
+        with:
+          path: ~/.cache/demo
+          key: cache-ca91ff0
+
+      - name: Show cache result
+        run: echo "Cache hit: ${{ steps.cache-step.outputs.cache-hit }}"
